@@ -91,3 +91,25 @@ for (const v of gen3()) {
 // 3
 // 4
 // iter value: undefined
+
+// 生成器做为默认迭代器
+class Foo {
+  private readonly nums: Array<number>;
+
+  constructor() {
+    this.nums = [1, 2, 3];
+  }
+
+  *[Symbol.iterator]() {
+    yield* this.nums;
+  }
+}
+
+console.log("-".repeat(40));
+const foo = new Foo();
+for (const v of foo) {
+  console.log(v);
+}
+// 1
+// 2
+// 3
