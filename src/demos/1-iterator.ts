@@ -52,3 +52,20 @@ for (const v of counter) {
   }
   console.log(v);
 }
+
+console.log("-".repeat(30));
+
+// 数组的迭代器不能关闭, 会继续从上次的位置返回
+
+const arrIte: IterableIterator<number> = arr[Symbol.iterator]();
+for (const v of arrIte) {
+  console.log(v);
+  if (v > 2) {
+    break;
+  }
+}
+console.log("从上次终止的位置继续进行遍历");
+
+for (const v of arrIte) {
+  console.log(v);
+}
