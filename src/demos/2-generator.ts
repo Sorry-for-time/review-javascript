@@ -113,3 +113,23 @@ for (const v of foo) {
 // 1
 // 2
 // 3
+
+console.log("-".repeat(40));
+
+// 生成器内部可以处理 throw, 并且跳过当前值
+function* gen4() {
+  for (const v of [1, 2, 3]) {
+    try {
+      yield v;
+    } catch (e: unknown) {
+      console.log(e);
+    }
+  }
+}
+const gen4Instance = gen4();
+console.log(gen4Instance.next()); // 1
+// 可以捕获到 yield 抛出的值
+const receive = gen4Instance.throw("THIS IF FOO"); // THIS IS FOO
+console.log(gen4Instance.next()); // 3
+
+console.log(`捕获的值:`, receive);
