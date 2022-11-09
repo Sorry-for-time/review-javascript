@@ -19,17 +19,26 @@ class Counter {
     this.limit = limit;
   }
 
-  /**
-   * 自定义迭代器实现
-   * @returns 迭代器
-   */
   [Symbol.iterator]() {
-    let count: number = 1;
+    let count: number = 0;
     return {
       next: () => {
         return {
+          value: ++count,
           done: count <= this.limit ? false : true,
-          value: count++,
+        };
+      },
+
+      /**
+       * 可选的 return 方法可用于在迭代器提前关闭时指向的逻辑
+       * @returns IteratorResult, 至少包含 {done: true/false}
+       */
+      return() {
+        console.log("提早退出");
+
+        return {
+          value: ++count,
+          done: false,
         };
       },
     };
@@ -38,15 +47,8 @@ class Counter {
 
 const counter = new Counter(3);
 for (const v of counter) {
+  if (v > 2) {
+    break; // 提早退出, 也可以使用 throw
+  }
   console.log(v);
-}
-
-const counterIte = counter[Symbol.iterator]();
-console.log(counterIte);
-
-console.log("-".repeat(30));
-let value = counterIte.next();
-while (!value.done) {
-  console.log(value);
-  value = counterIte.next();
 }
