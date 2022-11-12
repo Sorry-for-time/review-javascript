@@ -2,7 +2,7 @@ export {};
 
 const aKey = "getVersion";
 
-class Person {
+export class Person {
   // 通过 static 关键字可以直接将属性设置为类的静态属性
   static version: string = "v0.0";
   static version2: string = "v0.1";
@@ -84,33 +84,33 @@ class Person {
   }
 }
 
-const p = new Person("Wayne");
-console.log(p); // Person {_name: 'Wayne'}
-p.sayName(); // Wayne Wayne
-p.printVersion(); // v0.0
-console.log((Person.prototype.constructor as any).version); // v0.0
-console.log(Person.version); // v0.0
-console.log((Person.constructor as any).version); // undefined
-console.log(Person.prototype); // constructor..., sayName..., get name..., setName...
-for (const v of p.getSomeDataIterator()) {
-  console.log(v);
-}
-// 1
-// 2
-// 3
-for (const v of Person.getV1()) {
-  console.log(v); // How are you today
-}
+// const p = new Person("Wayne");
+// console.log(p); // Person {_name: 'Wayne'}
+// p.sayName(); // Wayne Wayne
+// p.printVersion(); // v0.0
+// console.log((Person.prototype.constructor as any).version); // v0.0
+// console.log(Person.version); // v0.0
+// console.log((Person.constructor as any).version); // undefined
+// console.log(Person.prototype); // constructor..., sayName..., get name..., setName...
+// for (const v of p.getSomeDataIterator()) {
+//   console.log(v);
+// }
+// // 1
+// // 2
+// // 3
+// for (const v of Person.getV1()) {
+//   console.log(v); // How are you today
+// }
 
-for (const v of Person.getV2()) {
-  console.log(v); // I have seen better
-}
-console.log("-".repeat(40));
-for (const v of p) {
-  console.log(v);
-}
-// w
-// a
-// y
-// n
-// e
+// for (const v of Person.getV2()) {
+//   console.log(v); // I have seen better
+// }
+// console.log("-".repeat(40));
+// for (const v of p) {
+//   console.log(v);
+// }
+// // w
+// // a
+// // y
+// // n
+// // e
