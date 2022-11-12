@@ -8,4 +8,5 @@ import "./style.css";
 // import "./demos/3-4-object";
 // import "./demos/3-5-object";
 // import "./demos/3-6-object";
-import "./demos/3-7-object"
+// import "./demos/3-7-object"
+import "./demos/3-8-object";
