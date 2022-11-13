@@ -79,3 +79,10 @@ function doAnother(name = "A DEFAULT VALUE"): void {
 doAnother();
 // A DEFAULT VALUE
 // undefined
+
+// 因为参数是按照顺序进行初始化的, 所以后定义默认值的参数可以引用先定义的参数(反过来不行, 参数的初始化顺序遵循 "暂时性死区" 规则)
+// 参数也存在于自己的作用域当中, 且也不允许引用函数体的作用域
+function doAnother2(parma1: any, parma2 = parma1): void {
+  console.log(parma1, parma2);
+}
+doAnother2("233"); // 233 233
