@@ -127,6 +127,10 @@ table[data-v-${randomClassId}]{
   text-align: left;
 }
 
+table[data-v-${randomClassId}]:first-child {
+  margin-top: 100px;
+}
+
 table[data-v-${randomClassId}] tr td{
   padding: 5px;
 }
@@ -146,7 +150,8 @@ async function doInsertTable(result: Array<TASK>, tableTitle: string = "A TABLE"
   const tableMainTilt = document.createElement("tr");
   tableMainTilt.appendChild(theTitle);
   thead.appendChild(tableMainTilt);
-  ["taskID", "need", "taskName", "rate", "afterRunning"].forEach((e) => {
+  const columnNames: string[] = ["serialVersionUID", "needTime", "taskName", "rate", "currentTime"];
+  columnNames.forEach((e) => {
     const th = document.createElement("th");
     th.textContent = e;
     theadTr.appendChild(th);
@@ -160,9 +165,9 @@ async function doInsertTable(result: Array<TASK>, tableTitle: string = "A TABLE"
     const tr = document.createElement("tr");
     console.log(e);
 
-    Object.values(e).forEach((v) => {
+    columnNames.forEach((v) => {
       const td = document.createElement("td");
-      td.textContent = JSON.stringify(v);
+      td.textContent = JSON.stringify((e as any)[v]);
       tr.appendChild(td);
     });
     tBody.appendChild(tr);

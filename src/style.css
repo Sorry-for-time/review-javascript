@@ -95,3 +95,12 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* set bfc layout */
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
