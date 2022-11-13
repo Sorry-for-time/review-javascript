@@ -16,4 +16,5 @@ import "./style.css";
 // import "./demos1/3-12-object";
 // import "./demos1/3-13-object";
 // import "./demos1/3-14-object";
-import "./demos2/1-function-1";
+// import "./demos2/1-function-1";
+import "./demos2/1-function-2";
