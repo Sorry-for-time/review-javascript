@@ -69,3 +69,48 @@ const aList = new SuperArray(1, 2, 3, 4, 5);
 console.log(aList); // [1, 2, 3, 4, 5];
 aList.shuffle();
 console.log(aList); // [3, 4, 1, 2, 5];
+console.log("-".repeat(40));
+
+// 类混入测试
+
+class Vehicle2 {}
+
+const FooMixin = (superClass: ObjectConstructor) =>
+  class extends superClass {
+    foo(): void {
+      console.log("foo");
+    }
+  };
+
+const BarMixin = (superClass: ObjectConstructor) =>
+  class extends superClass {
+    bar(): void {
+      console.log("bar");
+    }
+  };
+
+/**
+ * 类混合函数
+ * @param baseClass
+ * @param mixins
+ * @returns
+ */
+function mixing(baseClass: ObjectConstructor, ...mixins: Array<ObjectConstructor>): ObjectConstructor {
+  return mixins.reduce(
+    (accumulator, current) => {
+      // 继承之前的类
+      return current(accumulator);
+    },
+    // 初始值即为基类
+    baseClass
+  );
+}
+
+const Result: ObjectConstructor = mixing(Vehicle2 as any, FooMixin as any, BarMixin as any);
+const res: any = new Result();
+console.log(res); // Vehicle2 {}
+res.foo(); // foo
+res.bar(); // bar
+
+console.log(res instanceof Result); // true
+console.log(res instanceof Vehicle2); // true
