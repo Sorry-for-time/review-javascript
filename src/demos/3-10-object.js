@@ -35,6 +35,17 @@ SubType.prototype.sayAge = function () {
 
 const person = new SubType("Fox", 23);
 console.log(person); // SubType {name: 'Fox', colors: Array(3), age: 23}
+console.log(person.__proto__);
+/*
+SuperType {constructor: ƒ, sayAge: ƒ}
+  constructor: ƒ SubType(name, age)
+  sayAge: ƒ ()
+  [[Prototype]]: Object
+    sayName: ƒ ()
+    constructor: ƒ SuperType(name)
+  [[Prototype]]: Object
+*/
+
 person.sayAge(); // 23
 person.sayName(); // Fox
 
