@@ -80,7 +80,7 @@ export function sortTasksPrivilege(tasks: Array<TASK>): Array<TASK> {
   return queue;
 }
 
-const tasks: Array<TASK> = [
+const results: Array<TASK> = [
   {
     serialVersionUID: crypto.randomUUID(),
     needTime: 200,
@@ -104,11 +104,59 @@ const tasks: Array<TASK> = [
 ];
 
 // 排序完的结果
-sortTasksPrivilege(tasks).forEach((e: TASK): void => {
+const result = sortTasksPrivilege(results);
+result.forEach((e: TASK): void => {
   console.log(e);
 });
-
 // {serialVersionUID: '78025bef-0ff6-4f01-b3f8-9dd8a978d781', needTime: 100, taskName: 'job2', rate: 1, currentTime: 100}
 // {serialVersionUID: '81fbd2ec-62e0-40ed-8d4a-7c0034457193', needTime: 200, taskName: 'job1', rate: 1.5, currentTime: 300}
 // {serialVersionUID: 'a69f2287-4b3f-451b-b44f-65ab053a66aa', needTime: 220, taskName: 'job4', rate: 2.3636363636363638, currentTime: 520}
 // {serialVersionUID: '84821c01-8a8d-4a17-9c32-19e344c37db4', needTime: 500, taskName: 'job3', rate: 2.04, currentTime: 1020}currentTime: 1020needTime: 500rate: 2.04serialVersionUID: "84821c01-8a8d-4a17-9c32-19e344c37db4"taskName: "job3"[[Prototype]]: Object
+
+const randomClassId = crypto.randomUUID();
+const styles = `
+table[data-v-${randomClassId}]{
+  margin: 0 auto;
+  border: 1px solid rgb(167, 167, 167);
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px wheat;
+  background: linear-gradient(23deg, rgb(8, 2, 66), cyan);
+  text-shadow: 1px 1px 1px black;
+  font-size: 15px;
+  text-align: left;
+}
+`;
+
+window.addEventListener("load", () => {
+  const table: HTMLTableElement = document.createElement("table");
+  const thead = document.createElement("thead");
+  const theadTr = document.createElement("tr");
+  ["taskID", "taskName", "need", "rate", "afterRunning"].forEach((e) => {
+    const th = document.createElement("th");
+    th.textContent = e;
+    theadTr.appendChild(th);
+  });
+  thead.appendChild(theadTr);
+  table.appendChild(thead);
+
+  const tBody = document.createElement("tbody");
+  console.log("-".repeat(50));
+  result.forEach((e: TASK): void => {
+    const tr = document.createElement("tr");
+    console.log(e);
+
+    Object.values(e).forEach((v) => {
+      const td = document.createElement("td");
+      td.textContent = JSON.stringify(v);
+      tr.appendChild(td);
+    });
+    tBody.appendChild(tr);
+  });
+  table.appendChild(tBody);
+  const style = document.createElement("style");
+  style.textContent = styles;
+  document.head.appendChild(style);
+  table.setAttribute(`data-v-${randomClassId}`, "tag");
+  document.getElementById("app")?.appendChild(table);
+});
