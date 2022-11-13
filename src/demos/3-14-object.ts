@@ -49,3 +49,23 @@ try {
 } catch (e) {
   console.warn(e);
 }
+
+/**
+ * 继承 Array, 添加自定义洗牌方法
+ */
+class SuperArray extends Array {
+  constructor(...params: Array<any>) {
+    super(...params);
+  }
+  shuffle(): void {
+    for (let i: number = this.length - 1; i > 0; i--) {
+      const j: number = Math.floor(Math.random() * (i + 1));
+      [this[i], this[j]] = [this[j], this[i]];
+    }
+  }
+}
+
+const aList = new SuperArray(1, 2, 3, 4, 5);
+console.log(aList); // [1, 2, 3, 4, 5];
+aList.shuffle();
+console.log(aList); // [3, 4, 1, 2, 5];
