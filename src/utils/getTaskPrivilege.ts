@@ -80,7 +80,7 @@ export function sortTasksPrivilege(tasks: Array<TASK>): Array<TASK> {
   return queue;
 }
 
-const results: Array<TASK> = [
+const origin: Array<TASK> = [
   {
     serialVersionUID: crypto.randomUUID(),
     needTime: 200,
@@ -104,8 +104,8 @@ const results: Array<TASK> = [
 ];
 
 // 排序完的结果
-const result = sortTasksPrivilege(results);
-result.forEach((e: TASK): void => {
+const results = sortTasksPrivilege(origin);
+results.forEach((e: TASK): void => {
   console.log(e);
 });
 // {serialVersionUID: '78025bef-0ff6-4f01-b3f8-9dd8a978d781', needTime: 100, taskName: 'job2', rate: 1, currentTime: 100}
@@ -116,7 +116,7 @@ result.forEach((e: TASK): void => {
 const randomClassId = crypto.randomUUID();
 const styles = `
 table[data-v-${randomClassId}]{
-  margin: 0 auto;
+  margin: 10px auto;
   border: 1px solid rgb(167, 167, 167);
   padding: 10px;
   border-radius: 6px;
@@ -126,13 +126,27 @@ table[data-v-${randomClassId}]{
   font-size: 15px;
   text-align: left;
 }
+
+table[data-v-${randomClassId}] tr td{
+  padding: 5px;
+}
 `;
 
-window.addEventListener("load", () => {
+const style = document.createElement("style");
+style.textContent = styles;
+document.head.appendChild(style);
+
+async function doInsertTable(result: Array<TASK>, tableTitle: string = "A TABLE"): Promise<void> {
   const table: HTMLTableElement = document.createElement("table");
   const thead = document.createElement("thead");
   const theadTr = document.createElement("tr");
-  ["taskID", "taskName", "need", "rate", "afterRunning"].forEach((e) => {
+  const theTitle = document.createElement("th");
+  theTitle.setAttribute("colspan", "5");
+  theTitle.textContent = tableTitle;
+  const tableMainTilt = document.createElement("tr");
+  tableMainTilt.appendChild(theTitle);
+  thead.appendChild(tableMainTilt);
+  ["taskID", "need", "taskName", "rate", "afterRunning"].forEach((e) => {
     const th = document.createElement("th");
     th.textContent = e;
     theadTr.appendChild(th);
@@ -154,9 +168,12 @@ window.addEventListener("load", () => {
     tBody.appendChild(tr);
   });
   table.appendChild(tBody);
-  const style = document.createElement("style");
-  style.textContent = styles;
-  document.head.appendChild(style);
+
   table.setAttribute(`data-v-${randomClassId}`, "tag");
   document.getElementById("app")?.appendChild(table);
+}
+
+window.addEventListener("load", async (): Promise<void> => {
+  doInsertTable(origin, "原始数据");
+  doInsertTable(results, "排列数据");
 });
