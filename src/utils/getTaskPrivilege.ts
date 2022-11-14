@@ -1,3 +1,6 @@
+/**
+ * 定义作业描述
+ */
 type TASK = {
   /**
    * 任务序列化编号
@@ -29,6 +32,15 @@ type TASK = {
 export function sortTasksPrivilege(tasks: Array<TASK>): Array<TASK> {
   // 进行序列化赋值, 切断与原始对象的引用关系
   tasks = JSON.parse(JSON.stringify(tasks));
+  // 如果只有一个任务或没有任务的情况
+  if (tasks.length <= 1) {
+    if (tasks.length === 1) {
+      tasks[0].currentTime = tasks[0].needTime;
+      tasks[0].rate = 1;
+    }
+    return tasks;
+  }
+
   const queue: Array<TASK> = [];
   // 统计耗时
   let waitTime: number = 0;
@@ -55,8 +67,8 @@ export function sortTasksPrivilege(tasks: Array<TASK>): Array<TASK> {
     let max: TASK = leaves[0];
     if (leaves.length >= 2) {
       for (let i: number = 1; i < leaves.length; ++i) {
-        const rate1 = (max.needTime + waitTime) / max.needTime;
-        const rate2 = (leaves[i].needTime + waitTime) / leaves[i].needTime;
+        const rate1: number = (max.needTime + waitTime) / max.needTime;
+        const rate2: number = (leaves[i].needTime + waitTime) / leaves[i].needTime;
         // 比较优先级
         if (rate1 < rate2) {
           // 更新 max
@@ -64,46 +76,53 @@ export function sortTasksPrivilege(tasks: Array<TASK>): Array<TASK> {
           // 不要在这里更新响应比, 不要更新源数据
         }
       }
-      // 在外部进行更新取得的最优元素的响应比,
-      max.rate = (max.needTime + waitTime) / max.needTime;
-      // 将优先级较高的元素推到队首
+
+      max.rate = (max.needTime + waitTime) / max.needTime; /* 在外部进行更新取得的最优元素的响应比 */
+      // 将取得的高优先级元素添加到队尾
       queue.push(max);
       // 更新等待时间
       waitTime += max.needTime;
-    } else if (leaves.length === 1) {
+    }
+    // 如果只剩下一个元素的话直接添加省去比较
+    else if (leaves.length === 1) {
       max.rate = (max.needTime + waitTime) / max.needTime;
       queue.push(max);
       waitTime += max.needTime;
     }
+    // 设置当前任务完成后已经累计的时间
     queue[queue.length - 1].currentTime = waitTime;
   }
+
   return queue;
 }
 
+/**
+ * 定义作业队列
+ */
 const origin: Array<TASK> = [
   {
-    serialVersionUID: crypto.randomUUID(),
+    serialVersionUID: crypto.randomUUID().substring(0, 5),
     needTime: 200,
     taskName: "job1",
   },
   {
-    serialVersionUID: crypto.randomUUID(),
+    serialVersionUID: crypto.randomUUID().substring(0, 5),
     needTime: 100,
     taskName: "job2",
   },
   {
-    serialVersionUID: crypto.randomUUID(),
+    serialVersionUID: crypto.randomUUID().substring(0, 5),
     needTime: 500,
     taskName: "job3",
   },
   {
-    serialVersionUID: crypto.randomUUID(),
+    serialVersionUID: crypto.randomUUID().substring(0, 5),
     needTime: 220,
     taskName: "job4",
   },
 ];
 
-// 排序完的结果
+// 进行排序
 const results = sortTasksPrivilege(origin);
 results.forEach((e: TASK): void => {
   console.log(e);
@@ -115,7 +134,7 @@ results.forEach((e: TASK): void => {
 
 const randomClassId = crypto.randomUUID();
 const styles = `
-table[data-v-${randomClassId}]{
+table[data-v-${randomClassId}] {
   margin: 10px auto;
   border: 1px solid rgb(167, 167, 167);
   padding: 10px;
@@ -127,11 +146,20 @@ table[data-v-${randomClassId}]{
   text-align: left;
 }
 
+table[data-v-${randomClassId}] th  {
+  text-decoration: underline;
+  text-align: center;
+}
+
+table[data-v-${randomClassId}] tbody td  {
+  text-align: center;
+}
+
 table[data-v-${randomClassId}]:first-child {
   margin-top: 100px;
 }
 
-table[data-v-${randomClassId}] tr td{
+table[data-v-${randomClassId}] tr td {
   padding: 5px;
 }
 `;
@@ -165,7 +193,7 @@ async function doInsertTable(result: Array<TASK>, tableTitle: string = "A TABLE"
     const tr = document.createElement("tr");
     console.log(e);
 
-    columnNames.forEach((v) => {
+    columnNames.forEach((v: string): void => {
       const td = document.createElement("td");
       td.textContent = JSON.stringify((e as any)[v]);
       tr.appendChild(td);
@@ -175,6 +203,7 @@ async function doInsertTable(result: Array<TASK>, tableTitle: string = "A TABLE"
   table.appendChild(tBody);
 
   table.setAttribute(`data-v-${randomClassId}`, "tag");
+  // table.setAttribute("","");
   document.getElementById("app")?.appendChild(table);
 }
 
