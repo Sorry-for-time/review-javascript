@@ -18,4 +18,5 @@ import "./style.css";
 // import "./demos1/3-14-object";
 // import "./demos2/1-function-1";
 // import "./demos2/1-function-2";
-import "./utils/getTaskPrivilege";
+// import "./utils/getTaskPrivilege";
+import "./demos2/1-function-3";
