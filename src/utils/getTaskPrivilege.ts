@@ -133,7 +133,7 @@ results.forEach((e: TASK): void => {
 // {serialVersionUID: '84821c01-8a8d-4a17-9c32-19e344c37db4', needTime: 500, taskName: 'job3', rate: 2.04, currentTime: 1020}currentTime: 1020needTime: 500rate: 2.04serialVersionUID: "84821c01-8a8d-4a17-9c32-19e344c37db4"taskName: "job3"[[Prototype]]: Object
 
 // 生成全局唯一样式标识 uid
-const randomClassId: string = crypto.randomUUID();
+const randomClassId: string = crypto.randomUUID().substring(0, 8);
 // 设置样式字符串
 const styles: string = `
 table[data-v-${randomClassId}] {
@@ -213,7 +213,7 @@ async function doInsertTable(result: Array<TASK>, tableTitle: string = "A TABLE"
   });
   mainTable.appendChild(tBody); // 将表体添加到表格中
   // 设置表格的属性, 方便绑定样式
-  mainTable.setAttribute(`data-v-${randomClassId}`, "tag");
+  mainTable.setAttribute(`data-v-${randomClassId}`, "");
   document.getElementById("app")?.appendChild(mainTable);
 }
 
