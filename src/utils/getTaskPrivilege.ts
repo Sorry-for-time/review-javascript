@@ -132,8 +132,10 @@ results.forEach((e: TASK): void => {
 // {serialVersionUID: 'a69f2287-4b3f-451b-b44f-65ab053a66aa', needTime: 220, taskName: 'job4', rate: 2.3636363636363638, currentTime: 520}
 // {serialVersionUID: '84821c01-8a8d-4a17-9c32-19e344c37db4', needTime: 500, taskName: 'job3', rate: 2.04, currentTime: 1020}currentTime: 1020needTime: 500rate: 2.04serialVersionUID: "84821c01-8a8d-4a17-9c32-19e344c37db4"taskName: "job3"[[Prototype]]: Object
 
-const randomClassId = crypto.randomUUID();
-const styles = `
+// 生成全局唯一样式标识 uid
+const randomClassId: string = crypto.randomUUID();
+// 设置样式字符串
+const styles: string = `
 table[data-v-${randomClassId}] {
   margin: 10px auto;
   border: 1px solid rgb(167, 167, 167);
@@ -163,51 +165,59 @@ table[data-v-${randomClassId}] tr td {
   padding: 5px;
 }
 `;
-
-const style = document.createElement("style");
+// 添加样式到页面
+const style: HTMLStyleElement = document.createElement("style");
 style.textContent = styles;
 document.head.appendChild(style);
 
+/**
+ * 将任务信息通过表格渲染到页面
+ * @param result
+ * @param tableTitle
+ */
 async function doInsertTable(result: Array<TASK>, tableTitle: string = "A TABLE"): Promise<void> {
-  const table: HTMLTableElement = document.createElement("table");
-  const thead = document.createElement("thead");
-  const theadTr = document.createElement("tr");
-  const theTitle = document.createElement("th");
+  const mainTable: HTMLTableElement = document.createElement("table"); /* 表格主体 */
+  const thead: HTMLTableSectionElement = document.createElement("thead"); /* 表头 */
+  const theadTr: HTMLTableRowElement = document.createElement("tr"); /* 表头单元格 */
+  const theTitle: HTMLTableCellElement = document.createElement("th"); /* 表格标题 */
+  const tableMainTitle = document.createElement("tr"); /* 表格大标题 */
+
+  // 合并单元格
   theTitle.setAttribute("colspan", "5");
   theTitle.textContent = tableTitle;
-  const tableMainTilt = document.createElement("tr");
-  tableMainTilt.appendChild(theTitle);
-  thead.appendChild(tableMainTilt);
+  tableMainTitle.appendChild(theTitle);
+
+  thead.appendChild(tableMainTitle);
+
+  // 表格列名称列表
   const columnNames: string[] = ["serialVersionUID", "needTime", "taskName", "rate", "currentTime"];
-  columnNames.forEach((e) => {
-    const th = document.createElement("th");
+  columnNames.forEach((e: string): void => {
+    const th: HTMLTableCellElement = document.createElement("th");
     th.textContent = e;
     theadTr.appendChild(th);
   });
+
   thead.appendChild(theadTr);
-  table.appendChild(thead);
+  // 将表头标题行区域添加到表格当中
+  mainTable.appendChild(thead);
 
-  const tBody = document.createElement("tbody");
-  console.log("-".repeat(50));
+  const tBody: HTMLTableSectionElement = document.createElement("tbody"); /* 表体 */
   result.forEach((e: TASK): void => {
-    const tr = document.createElement("tr");
-    console.log(e);
-
+    const tr: HTMLTableRowElement = document.createElement("tr"); /* 创建行 */
     columnNames.forEach((v: string): void => {
       const td = document.createElement("td");
       td.textContent = JSON.stringify((e as any)[v]);
-      tr.appendChild(td);
+      tr.appendChild(td); // 将单元格信息添加到行中
     });
-    tBody.appendChild(tr);
+    tBody.appendChild(tr); // 将每一行添加到表体
   });
-  table.appendChild(tBody);
-
-  table.setAttribute(`data-v-${randomClassId}`, "tag");
-  // table.setAttribute("","");
-  document.getElementById("app")?.appendChild(table);
+  mainTable.appendChild(tBody); // 将表体添加到表格中
+  // 设置表格的属性, 方便绑定样式
+  mainTable.setAttribute(`data-v-${randomClassId}`, "tag");
+  document.getElementById("app")?.appendChild(mainTable);
 }
 
 window.addEventListener("load", async (): Promise<void> => {
-  doInsertTable(origin, "原始数据");
+  await doInsertTable(origin, "原始数据");
   doInsertTable(results, "排列数据");
 });
