@@ -76,3 +76,19 @@ const object5 = {
 object5.getFlag();
 // Window {window: Window, self: Window, document: document, name: '', location: Location, …}
 // outer flag
+
+console.log("-".repeat(30));
+function Person(name) {
+  this.getName = function () {
+    return name;
+  };
+
+  this.setName = function (value) {
+    name = value;
+  };
+}
+const f = new Person("fox");
+console.log(f.name); // undefined
+console.log(f.getName()); // fox
+f.setName("Wayne");
+console.log(f.getName()); // Wayne
