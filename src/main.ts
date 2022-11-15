@@ -23,4 +23,5 @@ import "./style.css";
 // import "./demos2/1-function-6"
 // import "./demos2/2-function-1";
 // import "./demos2/2-function-2";
-import "./demos2/2-function-3";
+// import "./demos2/2-function-3";
+import "./demos2/3-function-1";
