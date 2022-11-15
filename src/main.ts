@@ -20,4 +20,5 @@ import "./style.css";
 // import "./demos2/1-function-2";
 // import "./utils/getTaskPrivilege";
 // import "./demos2/1-function-3";
-import "./demos2/1-function-6"
+// import "./demos2/1-function-6"
+import "./demos2/2-function-1";
