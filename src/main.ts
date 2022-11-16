@@ -28,4 +28,5 @@ import "./style.css";
 // import "./demos3/randomFloatValue";
 // import "./demos4/web-worker-1";
 // import "./demos4/web-worker-2";
-import "./demos4/web-worker-3";
+// import "./demos4/web-worker-3";
+import "./demos4/web-worker-4";
