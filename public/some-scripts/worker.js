@@ -15,3 +15,7 @@ console.log(`importing scripts in ${self.name} with ${globalToken}`);
 importScripts("/some-scripts/scriptA.js", "/some-scripts/scriptB.js");
 
 console.log("scripts imported");
+
+// 允许在工作者线程中创建子工作者线程(顶级工作者线程的脚本和子工作者线程的脚本都必须从与主页相同的源加载)
+// 使用多个子工作线程可以实现并行计算
+const worker = new Worker("/some-scripts/subWorker.js");
