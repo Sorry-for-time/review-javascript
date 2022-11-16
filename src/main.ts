@@ -30,4 +30,5 @@ import "./style.css";
 // import "./demos4/web-worker-2";
 // import "./demos4/web-worker-3";
 // import "./demos4/web-worker-4";
-import "./demos4/web-worker-5";
+// import "./demos4/web-worker-5";
+import "./demos4/web-worker-6";
