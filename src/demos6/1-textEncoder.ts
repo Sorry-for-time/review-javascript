@@ -29,6 +29,7 @@ window.addEventListener("load", (): void => {
   // ==================================================================
   const uint8Array: Uint8Array = new Uint8Array(120);
   // encodeInto(str, uint8Array) 返回一个包含 read 和 written 属性的字典, 用于显示编码状态
+  // 注: 文本编码必须始终使用 Unit8Array, 使用其它类型的定型数组会导致 encodeInto 抛出错误
   const result: TextEncoderEncodeIntoResult = textEncoder.encodeInto(testStr, uint8Array);
   // 如果定型数组空间不够, 就会立即停止编码操作
   console.log(`读取成功了 ${result.read} 个字符`); // 读取成功了 17 个字符
