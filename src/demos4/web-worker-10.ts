@@ -17,8 +17,8 @@ for (let i: number = 0; i <= 4; i++) {
   new SharedWorker("/shared-worker-scripts/shared-worker1.js");
 }
 // 这些输出在 chrome 下可能没法看见(所以是在 firefox 上得出的)
-// connected 1 times
-// connected 2 times
-// connected 3 times
-// connected 4 times
-// connected 5 times
+// 1 unique connected ports, and i counts: is 1 times
+// 2 unique connected ports, and i counts: is 2 times
+// 3 unique connected ports, and i counts: is 3 times
+// 4 unique connected ports, and i counts: is 4 times
+// 5 unique connected ports, and i counts: is 5 times
