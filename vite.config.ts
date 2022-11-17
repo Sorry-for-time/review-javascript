@@ -10,6 +10,9 @@ export default defineConfig({
     cors: true,
     headers: {
       "Service-Worker-Allowed": "/",
+      // 为启用 SharedArrayBuffer 进行配置
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Embedder-Policy": "require-corp",
     },
   },
 });
