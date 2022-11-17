@@ -33,4 +33,20 @@ window.addEventListener("load", (): void => {
   // 如果定型数组空间不够, 就会立即停止编码操作
   console.log(`读取成功了 ${result.read} 个字符`); // 读取成功了 17 个字符
   console.log(`写入成功了 ${result.written} 个字符`); // 写入成功了 17 个字符
+
+  console.log("-".repeat(40));
+  // 文本解码操作, 允许设置多种字符集解码操作, 默认为 utf-8
+  const utf8Decoder: TextDecoder = new TextDecoder("utf-8");
+  console.log(utf8Decoder.encoding); // utf-8
+  const result1 = utf8Decoder.decode(new TextEncoder().encode("how are you today?"));
+  console.log(`utf-8 解码结果: ${result1}`); // utf-8 解码结果: how are you today
+  // 因为字符编码集和解码集不不对应, 中文下有可能发生乱码
+  console.log(new TextDecoder("gbk").decode(new TextEncoder().encode("中文?"))); // 涓枃?
+
+  const tmpUnit8Array: Uint8Array = Uint8Array.of(102, 111, 111);
+  const tmpUnit32Array: Uint32Array = Uint32Array.of(102, 111, 111);
+
+  // 解码器不关系传入的是那种定型数组, 只会专心解码整个二进制表示
+  console.log(utf8Decoder.decode(tmpUnit8Array)); // foo
+  console.log(utf8Decoder.decode(tmpUnit32Array)); // f o o
 });
