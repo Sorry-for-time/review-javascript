@@ -42,4 +42,5 @@ import "./style.css";
 // import "./demos5/atomics-4";
 // import "./demos5/atomics-5";
 // import "./demos5/atomics-6";
-import "./demos6/1-textEncoder";
+// import "./demos6/1-textEncoder";
+import "./demos6/2-textEncoderStream";
