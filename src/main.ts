@@ -35,4 +35,5 @@ import "./style.css";
 // import "./demos4/web-worker-7";
 // import "./demos4/web-worker-8";
 // import "./demos4/web-worker-9";
-import "./demos4/web-worker-10";
+// import "./demos4/web-worker-10";
+import "./demos5/atomics-1";
