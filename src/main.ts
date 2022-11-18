@@ -47,4 +47,5 @@ import "./style.css";
 // import "./demos6/3-textDecoderStream";
 // import "./demos7/1-file"
 // import "./demos7/2-fileReader";
-import "./demos7/3-blob";
+// import "./demos7/3-blob";
+import "./demos7/4-urlAndBlob";
