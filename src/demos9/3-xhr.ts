@@ -13,9 +13,10 @@ type METHOD = "get" | "post" | "delete" | "put";
  *         value: string;
  *       }>
  *     | { header: string; value: string })} [headersConfig] 头部配置
+ * @param {boolean} [useAsync=true] 是否启用异步请求, 默认为 true
  * @returns {*}  {Promise<any>} 响应数据
  */
-async function sendMessage(
+async function xhrAsyncRequest(
   method: METHOD,
   url: string,
   params: any,
@@ -25,7 +26,8 @@ async function sendMessage(
         header: string;
         value: string;
       }>
-    | { header: string; value: string }
+    | { header: string; value: string },
+  useAsync: boolean = true
 ): Promise<any> {
   const xhr = new XMLHttpRequest();
   return await new Promise((resolve, reject): void => {
@@ -55,7 +57,7 @@ async function sendMessage(
     };
 
     // 进行操作处理
-    xhr.open(method, url);
+    xhr.open(method, url, useAsync);
 
     // 自定义头部[为了保证请求头发送成功, 必须再 open 之后, send 之前调用 setRequestHeader]
     if (Array.isArray(headersConfig)) {
@@ -71,7 +73,7 @@ async function sendMessage(
 }
 
 // 失败的例子
-sendMessage("get", "/api/users", null, 5000)
+xhrAsyncRequest("get", "/api/users", null, 5000)
   .then((success: any): void => {
     console.log("%c" + `请求成功:  ${success}`, "color: cyan; font-size: 20px");
   })
@@ -82,7 +84,7 @@ sendMessage("get", "/api/users", null, 5000)
 console.log("-".repeat(40));
 
 // 成功的例子
-sendMessage("get", "/api/user", null, 3000, {
+xhrAsyncRequest("get", "/api/user", null, 3000, {
   header: "MyHeader",
   value: "23333",
 })
@@ -94,4 +96,4 @@ sendMessage("get", "/api/user", null, 3000, {
     console.warn(reason);
   });
 
-export { sendMessage };
+export { xhrAsyncRequest };
