@@ -29,28 +29,28 @@ async function sendMessage(
 ): Promise<any> {
   const xhr = new XMLHttpRequest();
   return await new Promise((resolve, reject): void => {
-    // 超时的话就断开连接
-    const timer: number = window.setTimeout((): void => {
-      xhr.abort();
-      reject("请求超时");
-    }, timeout);
-
     // 每次 readystate 从一个值变成另一个值都会触发 readystatechange 事件
     // 为保证跨浏览器兼容, onreadystatechange 事件处理程序应该再调用 open 之前赋值
     xhr.addEventListener("readystatechange", (): void => {
       // 判断相应状态
       if (xhr.readyState === 4) {
         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-          clearTimeout(timer);
           resolve(xhr.response);
         } else {
           reject(xhr);
         }
       }
     });
+    // 设置超时时间
+    xhr.timeout = timeout;
+
+    // 超时处理
+    xhr.ontimeout = (ev: ProgressEvent<EventTarget>): void => {
+      reject(ev);
+    };
+
     xhr.onerror = (reason: ProgressEvent<EventTarget>): void => {
       reason.preventDefault();
-      clearTimeout(timer);
       reject(reason);
     };
 
