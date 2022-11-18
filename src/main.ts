@@ -45,4 +45,5 @@ import "./style.css";
 // import "./demos6/1-textEncoder";
 // import "./demos6/2-textEncoderStream";
 // import "./demos6/3-textDecoderStream";
-import "./demos7/1-file"
+// import "./demos7/1-file"
+import "./demos7/2-fileReader";
