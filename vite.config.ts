@@ -6,10 +6,16 @@ export default defineConfig({
   server: {
     port: 5173,
     open: true,
-    proxy: {},
+    proxy: {
+      // 配置代理
+      "/api": {
+        target: "http://localhost:8080/",
+        changeOrigin: true,
+        rewrite: (path: string): string => path.replace(/^\/api/, ""),
+      },
+    },
     cors: true,
     headers: {
-      "Service-Worker-Allowed": "/",
       // 为启用 SharedArrayBuffer 进行配置
       "Cross-Origin-Opener-Policy": "same-origin",
       "Cross-Origin-Embedder-Policy": "require-corp",
