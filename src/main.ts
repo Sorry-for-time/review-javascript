@@ -51,4 +51,5 @@ import "./style.css";
 // import "./demos7/3-blob";
 // import "./demos7/4-urlAndBlob";
 // import "./demos7/5-drop-file";
-import "./demos7/6-dragEvent";
+// import "./demos7/6-dragEvent";
+import "./demos7/7-notification";
