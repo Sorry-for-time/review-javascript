@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
     <style>
+      #app div img,
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
       #app > input,
       span,
       div {
@@ -22,17 +29,26 @@
       #app div {
         width: 500px;
         height: 300px;
+        margin-top: 30px;
         border: 1px solid;
         border-radius: 4px;
         overflow: auto;
         box-sizing: border-box;
       }
 
-      #app div img,
-      video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      #app .drop-target {
+        width: 150px;
+        height: 80px;
+        border: 1px dashed rgba(0, 255, 255, 0.411);
+        text-align: center;
+        line-height: 80px;
+        overflow: unset;
+        font-size: 12px;
+        transition: 200ms ease-out;
+      }
+
+      #app .drop-target:hover {
+        border: 1px dashed rgb(0, 255, 255);
       }
     </style>
   </head>
@@ -43,9 +59,10 @@
       <!-- <iframe src="/iframe.html" style="margin-top: 100px; overflow: hidden; border: none; outline: none; width: 80%"> -->
       <!-- </iframe> -->
 
-      <input style="margin-top: 100px" type="file" />
+      <!-- <input style="margin-top: 100px" type="file" /> -->
       <!-- <span>当前加载进度为: <code></code></span> -->
-      <div contenteditable="true">wait...</div>
+      <div>啥也没有...</div>
+      <div class="drop-target">将文件拖放到此</div>
     </div>
     <!-- <script src="./src//demos2/1-function-4.js"></script> -->
     <!-- <script src="./src//demos2/1-function-5.js"></script> -->
