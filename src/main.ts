@@ -53,4 +53,5 @@ import "./style.css";
 // import "./demos7/5-drop-file";
 // import "./demos7/6-dragEvent";
 // import "./demos7/7-notification";
-import "./demos7/8-pageVisibilityApi";
+// import "./demos7/8-pageVisibilityApi";
+import "./demos8/1-readableStream";
