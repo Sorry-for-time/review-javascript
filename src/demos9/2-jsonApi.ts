@@ -77,3 +77,50 @@ const object1 = {
 };
 
 console.log(JSON.stringify(object1)); // "A TAG"
+
+console.log("-".repeat(40));
+// 默认方法
+const parsedObject1 = JSON.parse(str4);
+console.log(parsedObject1); // increment 只是当字符串处理
+/*
+{
+  "name": "counter",
+  "value": 0,
+  "increment": "(){this.value++;}",
+  "tags": [
+    -2,
+    -1,
+    0,
+    1,
+    2
+  ]
+}
+*/
+// 自定义转换 --> 设置 reviver 函数(区别于 replacer)
+const parsedObject2: any = JSON.parse(str4, (key: string, value: any) => {
+  // 将f返回值进行替换
+  if (key === "increment") {
+    return object.increment;
+  }
+  return value;
+});
+
+console.log(parsedObject2);
+/*
+{
+  "name": "counter",
+  increment: ƒ anonymous( )
+  "value": 0,
+  "tags": [
+    -2,
+    -1,
+    0,
+    1,
+    2
+  ]
+}
+*/
+
+parsedObject2.increment();
+parsedObject2.increment();
+console.log(parsedObject2.value); // 2
