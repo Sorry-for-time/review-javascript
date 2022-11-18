@@ -1,6 +1,5 @@
-export {};
-
 type METHOD = "get" | "post" | "delete" | "put";
+
 /**
  * @description 简单封装下 xhr 请求
  * @author Shalling <3330689546@qq.com>
@@ -9,18 +8,29 @@ type METHOD = "get" | "post" | "delete" | "put";
  * @param {string} url url
  * @param {*} params 请求体参数
  * @param {number} [timeout=2000] 超时, 默认 2s
- * @returns {*}  {Promise<any>} 返回数据
+ * @param {(Array<{
+ *         header: string;
+ *         value: string;
+ *       }>
+ *     | { header: string; value: string })} [headersConfig] 头部配置
+ * @returns {*}  {Promise<any>} 响应数据
  */
 async function sendMessage(
   method: METHOD,
   url: string,
   params: any,
-  timeout: number = 2000
+  timeout: number = 2000,
+  headersConfig?:
+    | Array<{
+        header: string;
+        value: string;
+      }>
+    | { header: string; value: string }
 ): Promise<any> {
   const xhr = new XMLHttpRequest();
   return await new Promise((resolve, reject): void => {
     // 超时的话就断开连接
-    const timer: number = window.setTimeout(() => {
+    const timer: number = window.setTimeout((): void => {
       xhr.abort();
       reject("请求超时");
     }, timeout);
@@ -46,7 +56,17 @@ async function sendMessage(
 
     // 进行操作处理
     xhr.open(method, url);
-    xhr.send(params);
+
+    // 自定义头部[为了保证请求头发送成功, 必须再 open 之后, send 之前调用 setRequestHeader]
+    if (Array.isArray(headersConfig)) {
+      headersConfig.forEach((header): void => {
+        xhr.setRequestHeader(header.header, header.value);
+      });
+    } else {
+      headersConfig &&
+        xhr.setRequestHeader(headersConfig.header, headersConfig.value);
+    }
+    xhr.send(params || null);
   });
 }
 
@@ -62,7 +82,10 @@ sendMessage("get", "/api/users", null, 5000)
 console.log("-".repeat(40));
 
 // 成功的例子
-sendMessage("get", "/api/user", null)
+sendMessage("get", "/api/user", null, 3000, {
+  header: "MyHeader",
+  value: "23333",
+})
   .then((success: any): void => {
     console.log("%c" + `请求成功:  ${success}`, "color: cyan; font-size: 20px");
     // 请求成功:  {"name":"Wayne","sex":true,"time":"2313"}
@@ -70,3 +93,5 @@ sendMessage("get", "/api/user", null)
   .catch((reason: any): void => {
     console.warn(reason);
   });
+
+export { sendMessage };
