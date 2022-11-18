@@ -67,3 +67,13 @@ console.log(str4);
     ]
 }
 */
+
+const object1 = {
+  title: "a tag",
+  // 再调用 stringify 方法时, 会基于 toJSON 方法返回适当的 json 表示
+  toJSON(): string {
+    return this.title.toLocaleUpperCase();
+  },
+};
+
+console.log(JSON.stringify(object1)); // "A TAG"
