@@ -56,4 +56,5 @@ import "./style.css";
 // import "./demos7/8-pageVisibilityApi";
 // import "./demos8/1-readableStream";
 // import "./demos8/2-writableStream";
-import "./demos8/3-transformStream";
+// import "./demos8/3-transformStream";
+import "./demos8/4-pipedStream";
