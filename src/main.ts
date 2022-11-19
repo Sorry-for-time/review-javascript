@@ -60,4 +60,5 @@ import "./style.css";
 // import "./demos8/4-pipedStream";
 // import "./demos9/1-highResolutionApi";
 // import "./demos9/2-jsonApi";
-import "./demos9/3-xhr";
+// import "./demos9/3-xhr";E
+import "./demos9/4-image";
