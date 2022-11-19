@@ -62,4 +62,5 @@ import "./style.css";
 // import "./demos9/2-jsonApi";
 // import "./demos9/3-xhr";E
 // import "./demos9/4-image";
-import "./demos9/5-jsonp";
+// import "./demos9/5-jsonp";
+import "./demos9/6-fetch";
