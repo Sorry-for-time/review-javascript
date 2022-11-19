@@ -1,5 +1,7 @@
 export {};
 
+import { formatLog, FORMAT_STYLE } from "../utils/formatLog";
+
 fetch("/api/user")
   // 期约返回一个 Promise 对象
   .then((response: Response): Promise<string> => {
@@ -12,7 +14,7 @@ fetch("/api/user")
     return response.text(); /* 可以调用 text 方法取得文本内容 */
   })
   .then((res: string): void => {
-    console.log(res);
+    formatLog(FORMAT_STYLE.NORMAL, res);
     console.log("-".repeat(40));
   });
 
@@ -30,7 +32,6 @@ fetch("/api/user", {
   referrerPolicy: "unsafe-url" /* 指定 HTTP Referer 头部 */,
   signal:
     null /* 用于支持通过 AbortController 中断进行的 fetch() 请求, 默认为未关联控制器的 AbortSignal 实例 */,
-
   // body: "参数", /* 可以通过 body 设置请求携带参数 */
   // get 请求不允许设置设置携带参数
 })
@@ -39,17 +40,5 @@ fetch("/api/user", {
     return response.text();
   })
   .then((result: string): void => {
-    console.log(result);
-    console.log("-".repeat(40));
+    formatLog(FORMAT_STYLE.CYAN, "44 行: ", result);
   });
-
-const req: Request = new Request("/api/user", {
-  method: "get",
-});
-const req1: Request = new Request(req);
-console.log(req.bodyUsed); // false
-console.log(req1.bodyUsed); // false
-console.log(req1 === req); // false
-const req2 = req1.clone();
-// 如果 bodyUsed 属性为 true, 那么上述任何一种方式都不能用来创建这个对象的副本
-console.log(req2.bodyUsed); // false
