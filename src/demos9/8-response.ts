@@ -20,3 +20,17 @@ fetch("/api/user", {
   .finally((): void => {
     console.log("-".repeat(40));
   });
+
+fetch("/api/user", {
+  method: "get",
+})
+  .then(async (response: Response): Promise<void> => {
+    const buffer: ArrayBuffer = await response.arrayBuffer();
+    const uint8Array: Uint8Array = new Uint8Array(buffer);
+    const str: string = new TextDecoder("utf-8").decode(uint8Array);
+    formatLog(FORMAT_STYLE.BLUE, str);
+    // {"name":"Wayne","sex":true,"time":"2313"}
+  })
+  .finally((): void => {
+    console.log("=".repeat(40));
+  });
