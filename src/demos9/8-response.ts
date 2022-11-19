@@ -40,9 +40,13 @@ fetch("/api/user", {
   method: "get",
 })
   .then(async (response: Response): Promise<void> => {
+    // 主体流只能使用一次, 意味着所有主体混入方法只能调用一次
     const blob: Blob = await response.blob();
+    // const blob2: Blob = await response.blob(); // 再次使用会报错
     const text = await blob.text();
     formatLog(FORMAT_STYLE.CYAN, text);
+    formatLog(FORMAT_STYLE.CYAN, response.bodyUsed);
+    // true, 表示已经在流上加了锁
   })
   .finally((): void => {
     console.log("=".repeat(40));
