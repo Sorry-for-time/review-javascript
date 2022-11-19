@@ -64,4 +64,5 @@ import "./style.css";
 // import "./demos9/4-image";
 // import "./demos9/5-jsonp";
 // import "./demos9/6-fetch";
-import "./demos9/7-request";
+// import "./demos9/7-request";
+import "./demos9/8-response";
