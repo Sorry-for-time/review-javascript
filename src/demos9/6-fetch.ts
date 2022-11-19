@@ -40,4 +40,16 @@ fetch("/api/user", {
   })
   .then((result: string): void => {
     console.log(result);
+    console.log("-".repeat(40));
   });
+
+const req: Request = new Request("/api/user", {
+  method: "get",
+});
+const req1: Request = new Request(req);
+console.log(req.bodyUsed); // false
+console.log(req1.bodyUsed); // false
+console.log(req1 === req); // false
+const req2 = req1.clone();
+// 如果 bodyUsed 属性为 true, 那么上述任何一种方式都不能用来创建这个对象的副本
+console.log(req2.bodyUsed); // false
