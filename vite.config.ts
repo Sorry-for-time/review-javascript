@@ -17,8 +17,8 @@ export default defineConfig({
     cors: true,
     headers: {
       // 为启用 SharedArrayBuffer 进行配置
-      "Cross-Origin-Opener-Policy": "same-origin",
-      "Cross-Origin-Embedder-Policy": "require-corp",
+      // "Cross-Origin-Opener-Policy": "same-origin",
+      // "Cross-Origin-Embedder-Policy": "require-corp",
     },
   },
 });
