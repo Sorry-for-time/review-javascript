@@ -1,8 +1,11 @@
 export const enum FORMAT_STYLE {
-  NORMAL = "color: black; font-size: 15px; background: white; border-radius: 3px; padding-left: 3px; padding-right: 3px",
-  DANGER = "color: red; font-size: 15px; background: yellow; border-radius: 3px; padding-left: 3px; padding-right: 3px",
+  NORMAL = "color: black; font-size: 15px; background: white; border-radius: 3px; padding-left: 3px; padding-right: 3px; font-width: bolder",
+  DANGER = "color: red; font-size: 15px; background: yellow; border-radius: 3px; padding-left: 3px; padding-right: 3px; font-width: bolder",
   PURPLE = "color: purple; font-size: 15px",
   CYAN = "color: cyan; font-size: 15px",
+  ORANGE = "color: orange; font-size: 15px",
+  BLUE = "color: blue; font-size: 15px",
+  RED = "color: red; font-size: 15px",
 }
 
 /**
