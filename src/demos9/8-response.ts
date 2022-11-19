@@ -34,3 +34,16 @@ fetch("/api/user", {
   .finally((): void => {
     console.log("=".repeat(40));
   });
+
+// 使用 blob() 方法
+fetch("/api/user", {
+  method: "get",
+})
+  .then(async (response: Response): Promise<void> => {
+    const blob: Blob = await response.blob();
+    const text = await blob.text();
+    formatLog(FORMAT_STYLE.CYAN, text);
+  })
+  .finally((): void => {
+    console.log("=".repeat(40));
+  });
