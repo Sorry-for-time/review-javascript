@@ -74,4 +74,5 @@ import "./style.css";
 // import "./demos10/5-connection-state";
 // import "./demos10/6-battery-status-api";
 // import "./demos10/7-hardware-message";
-import "./demos11/1-Node-type";
+// import "./demos11/1-Node-type";
+import "./demos11/2-dom-operation";
