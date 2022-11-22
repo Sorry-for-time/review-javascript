@@ -71,4 +71,5 @@ import "./style.css";
 // import "./demos10/2-open-new-window";
 // import "./demos10/3-history";
 // import "./demos10/4-geolocation";
-import "./demos10/5-connection-state";
+// import "./demos10/5-connection-state";
+import "./demos10/6-battery-status-api";
