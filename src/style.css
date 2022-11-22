@@ -104,4 +104,9 @@ body,
   height: 100%;
   overflow: hidden;
   display: flex;
+  flex-wrap: wrap;
+}
+
+#app * {
+  flex: 100%
 }
