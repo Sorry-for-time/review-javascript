@@ -69,4 +69,5 @@ import "./style.css";
 // import "./demos9/9-websocket";
 // import "./demos10/1-cookie";
 // import "./demos10/2-open-new-window";
-import "./demos10/3-history";
+// import "./demos10/3-history";
+import "./demos10/4-geolocation";
