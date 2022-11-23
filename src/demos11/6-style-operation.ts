@@ -31,4 +31,19 @@ window.addEventListener("load", (): void => {
   styleSheet.insertRule(`li { color: cyan }`);
   // 删除规则
   styleSheet.deleteRule(0);
+
+  // offsetLeft 和 offsetTop 是相对于包含元素的
+  const firstLi: HTMLLIElement = document.querySelectorAll("li")![0];
+  const secondLi: HTMLLIElement = document.querySelectorAll("li")![1];
+  console.log(firstLi.offsetHeight); // 元素的高度 24
+  console.log(firstLi.offsetWidth); // 元素的宽度 649
+  console.log(firstLi.offsetTop); // 元素上边框外侧距离包含元素上边框内侧的像素 48
+  console.log(firstLi.offsetLeft); // 元素左侧边框外侧距离包含元素上边框的内测的像素 72
+  console.log("-".repeat(40));
+  console.log(secondLi.offsetHeight); // 24
+  console.log(secondLi.offsetWidth); // 649
+  console.log(secondLi.offsetTop); // 72
+  console.log(secondLi.offsetLeft); // 72
+
+  console.log(secondLi.offsetParent);
 });
