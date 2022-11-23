@@ -78,4 +78,5 @@ import "./style.css";
 // import "./demos11/2-dom-operation";
 // import "./demos11/3-dom-operation";
 // import "./demos11/4-mutation-observer-api";
-import "./demos11/5-dom-extensions";
+// import "./demos11/5-dom-extensions";
+import "./demos11/6-style-operation";
