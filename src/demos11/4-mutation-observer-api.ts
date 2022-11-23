@@ -18,7 +18,8 @@ window.addEventListener("load", (): void => {
     // attributeFilter: [] /* 设置监听的属性的白名单(即要进行记录的) */,
     attributeOldValue: true /* 记录变化之前的属性值(所有都会被记录下来) */,
     childList: true /* 修改目标节点触发事件变化 */,
-    subtree: true /* 除目标节点, 观察目标节点的子树 */,
+    subtree:
+      true /* 除目标节点, 观察目标节点的子树(子树中的节点被移出子树后仍然能够触发变化事件) */,
     characterData: true /* 修改字符数据触发变化事件 */,
     characterDataOldValue: true /* 记录变化之前的字符数据 */,
   });
@@ -47,4 +48,11 @@ window.addEventListener("load", (): void => {
 
     document.querySelector("ul")!.appendChild(document.createElement("hr"));
   }, 3000);
+
+  // 调用 takeRecords() 方法可以清空记录队列, 取出并返回其中的所有 MutationRecord 实例
+  const records: MutationRecord[] = observer.takeRecords();
+  console.log("records -->", records);
 });
+// MutationObserver 实例与目标节点之间引用关系是非对称的 --> 弱引用, 所以不会妨碍垃圾回收程序回收目标节点
+// 但目标节点却拥有对 MutationObserver 的强引用, 如果目标节点被回收, 那么关联的  MutationObserver 也会
+// 被回收
