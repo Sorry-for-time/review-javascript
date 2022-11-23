@@ -5,7 +5,7 @@ window.addEventListener("load", (): void => {
   // 创建一个实例
   const observer: MutationObserver = new MutationObserver(
     // 在 dom 被修改时异步执行
-    (mutations: MutationRecord[], observer: MutationObserver): void => {
+    (mutations: MutationRecord[], _observer: MutationObserver): void => {
       console.log(mutations);
       console.log("dom was changed");
     }
@@ -13,13 +13,13 @@ window.addEventListener("load", (): void => {
 
   // 关联 dom
   observer.observe(document.body, {
-    // 监听选项配置
-    attributes: true,
-    attributeOldValue: true,
-    childList: true,
-    subtree: true,
-    characterData: true,
-    characterDataOldValue: true,
+    // 监听选项配置(至少的配置一个属性为 true)
+    attributes: true /* 观察属性节点的变化 */,
+    attributeOldValue: true /* 记录变化之前的属性值 */,
+    childList: true /* 修改目标节点触发事件变化 */,
+    subtree: true /* 除目标节点, 观察目标节点的子树 */,
+    characterData: true /* 修改字符数据触发变化事件 */,
+    characterDataOldValue: true /* 记录变化之前的字符数据 */,
     // attributeFilter: [] /* 过滤器 */,
   });
 
