@@ -39,4 +39,29 @@ window.addEventListener("load", (): void => {
   Object.keys(dataset).forEach((key: string): void => {
     console.log(key, dataset[key]);
   });
+
+  const h3: HTMLHeadingElement = document.querySelector("h3")!;
+
+  const span: HTMLSpanElement = document.createElement("span");
+  span.textContent = "(after begin tag) ";
+  // 将 span 插入到 <h3> 标签后面
+  h3.insertAdjacentElement("afterbegin", span);
+
+  const span1: HTMLSpanElement = document.createElement("span");
+  span1.textContent = "(before begin tag)";
+  h3.insertAdjacentElement("beforebegin", span1);
+
+  const span2: HTMLSpanElement = document.createElement("span");
+  span2.textContent = " (before end tag)";
+  h3.insertAdjacentElement("beforeend", span2);
+
+  const span3: HTMLSpanElement = document.createElement("span");
+  span3.textContent = " (after end tag)";
+  h3.insertAdjacentElement("afterend", span3);
+  /*
+  大概的预览
+            (before begin tag)
+  (after begin tag) some text (before end tag)
+            (after end tag)
+  */
 });
