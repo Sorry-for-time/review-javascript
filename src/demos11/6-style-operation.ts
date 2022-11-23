@@ -44,6 +44,25 @@ window.addEventListener("load", (): void => {
   console.log(secondLi.offsetWidth); // 649
   console.log(secondLi.offsetTop); // 72
   console.log(secondLi.offsetLeft); // 72
+  console.log(secondLi.offsetParent); // <body>...</body>
 
-  console.log(secondLi.offsetParent);
+  console.log("-".repeat(40));
+  // 获取客户端元素的内部空间(即视口尺寸)
+  console.log(document.documentElement.clientWidth);
+  console.log(document.documentElement.clientHeight);
+
+  console.log("-".repeat(40));
+  // 没有滚动条出现的话, 元素内容的总高度和总宽度)
+  console.log(secondLi.scrollHeight, secondLi.scrollWidth); // 24, 649
+  // 内容区左侧的隐藏的像素
+  console.log(secondLi.scrollLeft); // 0
+  // 内容区顶部的隐藏的像素
+  console.log(secondLi.scrollTop); // 0
+
+  console.log("-".repeat(40));
+  // 元素在页面中相对视口的位置
+  console.log(secondLi.getBoundingClientRect().left); // 72
+  console.log(secondLi.getBoundingClientRect().top); // 72
+  console.log(secondLi.getBoundingClientRect().right); // 721
+  console.log(secondLi.getBoundingClientRect().bottom); // 96
 });
