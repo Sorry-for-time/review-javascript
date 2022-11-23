@@ -56,3 +56,4 @@ window.addEventListener("load", (): void => {
 // MutationObserver 实例与目标节点之间引用关系是非对称的 --> 弱引用, 所以不会妨碍垃圾回收程序回收目标节点
 // 但目标节点却拥有对 MutationObserver 的强引用, 如果目标节点被回收, 那么关联的  MutationObserver 也会
 // 被回收
+// 注: 记录队列中的每个 MutationRecord 实例至少包含对已有 dom 节点的一个引用
