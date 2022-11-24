@@ -18,6 +18,10 @@
     );
   gap: var(--gap-unit);
 
+  .hidden {
+    visibility: hidden;
+  }
+
   .top {
     display: grid;
     grid-template-columns: var(--img-unit) var(--img-unit);
@@ -31,22 +35,17 @@
       .cursor {
         cursor: move;
         display: block;
-        width: 60%;
-        height: 60%;
+        width: 50%;
+        height: 50%;
         background-color: #006e8a6b;
-      }
-
-      .hidden {
-        visibility: hidden;
       }
     }
 
     .zoom-preview {
       width: var(--img-unit);
       background: scroll no-repeat url("/imgs/5131584.jpg");
-      background-size: 500%;
-      background-position-x: 0%;
-      background-position-y: 0%;
+      background-position: 0% 0%;
+      background-size: 400%;
     }
   }
 
