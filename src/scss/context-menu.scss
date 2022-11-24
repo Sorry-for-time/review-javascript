@@ -1,0 +1,43 @@
+.hidden {
+  display: none;
+}
+
+.context-menu {
+  position: absolute;
+  width: 250px;
+  height: auto;
+  border-radius: 10px;
+  background: scroll no-repeat center
+    linear-gradient(23deg, rgba(20, 97, 160, 0.37), rgba(14, 2, 31, 0.164));
+  backdrop-filter: blur(16px) saturate(1.3) brightness(0.8) contrast(1.1);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.233);
+  overflow: hidden;
+  border: 1px solid rgba(204, 204, 204, 0.089);
+
+  div {
+    margin: 6px auto;
+    display: grid;
+    align-items: center;
+    justify-content: start;
+    padding-left: 10px;
+    color: rgba(236, 236, 236, 0.822);
+    border-radius: 5px;
+    cursor: default;
+
+    width: 96%;
+    transition: all 200ms;
+    height: 34px;
+
+    &:nth-child(3n) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.151);
+    }
+
+    &:hover {
+      background-color: rgba(250, 235, 215, 0.281);
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
