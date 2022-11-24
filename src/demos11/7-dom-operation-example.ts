@@ -1,4 +1,5 @@
 export {};
+import { throttle } from "lodash-es";
 
 window.addEventListener("load", (): void => {
   const mainPic: HTMLDivElement = document.querySelector(".main-pic")!;
@@ -24,7 +25,7 @@ window.addEventListener("load", (): void => {
 
   const cursorWidth: number = cursor.offsetWidth;
   const cursorHeight: number = cursor.offsetHeight;
-  function handler(ev: MouseEvent): void {
+  const handler = throttle((ev: MouseEvent): void => {
     ev.stopPropagation();
     ev.preventDefault();
     const offsetX: number = ev.clientX - cursor.offsetLeft,
@@ -48,7 +49,7 @@ window.addEventListener("load", (): void => {
     cursor.style.setProperty("--y", `${top}px`);
 
     zoomPreview.style.backgroundPosition = `${left / 2.02}% ${top / 2.02}%`;
-  }
+  }, 10);
 
   mainPic.addEventListener("mousemove", handler);
 });
