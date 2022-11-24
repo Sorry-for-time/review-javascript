@@ -23,8 +23,15 @@ window.addEventListener("load", (): void => {
   cursor.style.setProperty("--y", "0px");
   cursor.style.transform = `translate(var(--x), var(--y))`;
 
-  const cursorWidth: number = cursor.offsetWidth;
-  const cursorHeight: number = cursor.offsetHeight;
+  let cursorWidth: number = cursor.offsetWidth;
+  let cursorHeight: number = cursor.offsetHeight;
+
+  // 视口大小改变时重新获取元素的尺寸
+  window.visualViewport?.addEventListener("resize", (): void => {
+    cursorWidth = cursor.offsetWidth;
+    cursorHeight = cursor.offsetHeight;
+  });
+
   const handler = throttle((ev: MouseEvent): void => {
     ev.stopPropagation();
     ev.preventDefault();
