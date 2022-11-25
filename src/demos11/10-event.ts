@@ -23,3 +23,8 @@ window.addEventListener("load", (): void => {
     preview.textContent = input.value;
   });
 });
+
+window.addEventListener("beforeunload", (ev: BeforeUnloadEvent) => {
+  ev.returnValue = null;
+  return "您确定离开页面吗";
+});
