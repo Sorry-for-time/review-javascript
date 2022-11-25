@@ -24,7 +24,7 @@ window.addEventListener("load", (): void => {
   });
 });
 
-window.addEventListener("beforeunload", (ev: BeforeUnloadEvent) => {
-  ev.returnValue = null;
-  return "您确定离开页面吗";
-});
+// window.addEventListener("beforeunload", (ev: BeforeUnloadEvent) => {
+//   ev.returnValue = null;
+//   return "您确定离开页面吗";
+// });
