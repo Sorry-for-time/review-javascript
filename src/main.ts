@@ -84,7 +84,8 @@ import "./scss/box.scss";
 // import "./demos11/7-dom-operation-example";
 // import "./demos11/8-node-iterator";
 // import "./demos11/9-event";
-import "./demos11/10-event";
+// import "./demos11/10-event";
+import "./demos11/11-event-delegation";
 
 window.addEventListener("load", (): void => {
   if (document.body.classList.contains("hide-page")) {
