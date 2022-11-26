@@ -18,6 +18,13 @@ function handler(ev: MouseEvent): void {
       case "4":
         console.log("the li value is 4");
         break;
+      case "解绑事件":
+        (ev.target as HTMLElement).parentElement?.removeEventListener(
+          "click",
+          handler
+        );
+        console.log("移除监听器");
+        break;
       default:
         console.log("doesn't click the li element");
         break;
