@@ -29,4 +29,17 @@ window.addEventListener("load", (): void => {
   // 1
   // 1
   // 1
+
+  const tmpP: HTMLParagraphElement = document.createElement("p");
+  tmpP.textContent = "a new node";
+
+  const allDiv: NodeListOf<HTMLDivElement> = app.querySelectorAll("div");
+  // 添加新元素
+  allDiv[0].shadowRoot?.appendChild(tmpP);
+
+  // 移动节点
+  allDiv[2].shadowRoot?.appendChild(
+    allDiv[0].shadowRoot?.removeChild(allDiv[0].shadowRoot.lastElementChild!)!
+  );
+  // ...
 });
