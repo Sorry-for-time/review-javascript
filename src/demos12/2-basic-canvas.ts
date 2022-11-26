@@ -10,6 +10,10 @@ window.addEventListener("load", (): void => {
     willReadFrequently: true,
   })!;
 
+  context.font = "bold 20px Arial";
+  context.textBaseline = "middle";
+  context.fillText("LIVE FREE OR DIE", 10, 90);
+
   context.lineWidth = 4; /* 设置描边粗细 */
   context.lineCap = "round"; /* 设置线条端点形状 */
   context.lineJoin = "round"; /* 控制线条交点形状 */
