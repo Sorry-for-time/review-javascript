@@ -92,7 +92,8 @@ import "./scss/box.scss";
 // import "./demos13/1-webComponent";
 // import "./demos13/2-shadow-dom";
 // import "./demos13/3-use-shadow-dom";
-import "./demos13/4-use-slot";
+// import "./demos13/4-use-slot";
+import "./demos13/5-use-define-name-slot";
 
 window.addEventListener("load", (): void => {
   if (document.body.classList.contains("hide-page")) {
