@@ -10,6 +10,10 @@
         display: none;
       }
     </style>
+
+    <template id="foo">
+      <p>Inside a template</p>
+    </template>
   </head>
   <body class="hide-page">
     <!-- <div class="context-menu hidden">
@@ -23,11 +27,7 @@
       <div>8 显示更多选项</div>
     </div> -->
 
-    <div id="app">
-      <main>
-        <canvas height="200" width="200">A DRAWING OF SOMETHING</canvas>
-      </main>
-    </div>
+    <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

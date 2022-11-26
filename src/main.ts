@@ -88,7 +88,8 @@ import "./scss/box.scss";
 // import "./demos11/11-event-delegation";
 // import "./demos11/12-event-simulation";
 // import "./demos12/1-requestAnimationFrame";
-import "./demos12/2-basic-canvas";
+// import "./demos12/2-basic-canvas";
+import "./demos13/1-webComponent";
 
 window.addEventListener("load", (): void => {
   if (document.body.classList.contains("hide-page")) {
