@@ -1,4 +1,5 @@
 export {};
+import { FORMAT_STYLE, formatLog } from "../utils/formatLog";
 
 class CustomOne extends HTMLElement {
   private innerP: HTMLParagraphElement | null = null;
@@ -31,6 +32,10 @@ class CustomOne extends HTMLElement {
     `;
   }
 
+  /**
+   * 处理元素点击时的触发
+   * @param ev 点击事件
+   */
   private clickHandler(ev: MouseEvent): void {
     console.log(ev.clientX, ev.clientY);
   }
@@ -54,12 +59,34 @@ class CustomOne extends HTMLElement {
     this.innerP && this.innerP.removeEventListener("click", this.clickHandler);
   }
 
-  public attributeChangedCallback(): void {
-    console.log("attributeChangedCallback");
+  public attributeChangedCallback(
+    name: string,
+    oldValue: string,
+    newValue: string
+  ): void {
+    formatLog(FORMAT_STYLE.NORMAL, "attributeChangedCallback");
+    if (oldValue !== newValue) {
+      formatLog(FORMAT_STYLE.NORMAL, `${oldValue} --> ${newValue}`);
+      (<any>this)[name] = newValue;
+    }
   }
 
   public adoptedCallBack(): void {
-    console.log("adoptedCallBack");
+    formatLog(FORMAT_STYLE.NORMAL, "adoptedCallBack");
+  }
+
+  public get bar(): string {
+    formatLog(FORMAT_STYLE.CYAN, "get bar");
+    return this.getAttribute("bar")!;
+  }
+
+  public set bar(newValue: string) {
+    formatLog(FORMAT_STYLE.ORANGE, "set bar");
+    this.setAttribute("bar", newValue);
+  }
+
+  static get observedAttributes(): Array<string> {
+    return ["bar"];
   }
 }
 
@@ -69,13 +96,25 @@ window.addEventListener("load", (): void => {
   const app: HTMLDivElement = document.querySelector("#app")!;
   const customOne: CustomOne = new CustomOne();
   customOne.textContent = "INSIDE IN A CUSTOM ELEMENT";
+
   const h4: HTMLHeadingElement = document.createElement("h4");
   h4.setAttribute("slot", "extra");
   h4.textContent = "EXTRA";
   customOne.appendChild(h4);
 
   app.appendChild(customOne);
-  setTimeout(() => {
-    app.removeChild(customOne);
-  }, 4000);
+  customOne.setAttribute("bar", "some-values");
+  console.log(customOne.getAttribute("bar"));
+  customOne.setAttribute("bar", "other-values");
+  console.log(customOne.bar);
+
+  /* new Promise((resolve): void => {
+    setTimeout(() => {
+      resolve(app.removeChild(customOne));
+    }, 4000);
+  }).then((res: unknown): void => {
+    console.log("-".repeat(40));
+    console.log(res);
+    app.appendChild(res as CustomOne);
+  }); */
 });
