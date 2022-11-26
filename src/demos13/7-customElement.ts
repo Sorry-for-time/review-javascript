@@ -12,7 +12,14 @@ class CustomOne extends HTMLElement {
           color: cyan;
           cursor: default;
           user-select: none;
+          transition: 200ms ease-out;
         }
+
+        P:hover {
+          transform: scale(1.02);
+          cursor: pointer;
+        }
+
         div {
           color: purple;
         }
