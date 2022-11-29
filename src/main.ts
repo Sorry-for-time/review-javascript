@@ -96,7 +96,8 @@ import "./scss/box.scss";
 // import "./demos13/5-use-define-name-slot";
 // import "./demos13/6-customElement";
 // import "./demos13/6-customElement";
-import "./demos13/7-customElement";
+// import "./demos13/7-customElement";
+import "./demos10/8-indexedDB";
 
 window.addEventListener("load", (): void => {
   if (document.body.classList.contains("hide-page")) {
