@@ -97,7 +97,8 @@ import "./scss/box.scss";
 // import "./demos13/6-customElement";
 // import "./demos13/6-customElement";
 // import "./demos13/7-customElement";
-import "./demos10/8-indexedDB";
+// import "./demos10/8-indexedDB";
+import "./demos14/1-async-test";
 
 window.addEventListener("load", (): void => {
   if (document.body.classList.contains("hide-page")) {
