@@ -1,4 +1,5 @@
 export {};
+import { useGenerateDelayNum } from "../utils/generateDelayNum";
 
 const user = {
   databaseName: "data-view" /* 数据库名称 */,
@@ -27,7 +28,7 @@ openRequest.onupgradeneeded = (): void => {
 openRequest.onsuccess = async (): Promise<void> => {
   console.log("获取数据库对象成功");
   database = openRequest.result;
-  for await (const _t of generateDelayNum(10, 1000)) {
+  for await (const _t of useGenerateDelayNum(10, 1000)) {
     const transaction: IDBTransaction = database.transaction(
       user.storeObjectName,
       "readwrite",
@@ -49,18 +50,3 @@ openRequest.onsuccess = async (): Promise<void> => {
 openRequest.onerror = (): void => {
   console.warn(openRequest.error);
 };
-
-/**
- * 根据指定延迟时间逐步返回迭代上限值前的递增数
- * @param limit 上限
- * @param delay  迭代延迟
- */
-async function* generateDelayNum(limit: number = 100, delay: number = 500) {
-  for (let i: number = 1; i <= limit; ++i) {
-    yield new Promise((resolve: (value: unknown) => void): void => {
-      setTimeout(() => {
-        resolve(i);
-      }, delay);
-    });
-  }
-}
