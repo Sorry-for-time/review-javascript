@@ -1,41 +1,66 @@
-import { formatLog, FORMAT_STYLE } from "../utils/formatLog";
-
 export {};
 
-let db: IDBDatabase,
-  request: IDBOpenDBRequest,
-  version: number = 1;
-
-request = window.indexedDB.open("admin", version);
-
-request.onerror = (reason): void => {
-  formatLog(FORMAT_STYLE.DANGER, reason);
+const user = {
+  databaseName: "data-view" /* 数据库名称 */,
+  databaseVersion: 1 /* 数据库版本号 */,
+  storeObjectName: "data-store" /* 实例对象名称 */,
+  storeObjectId: "store_id" /* 唯一 key */,
 };
 
-request.onsuccess = (ev): void => {
-  db = (ev.target as any).result as IDBDatabase;
-  console.log(db);
-};
+let database: IDBDatabase | null = null;
+let objectStore: IDBObjectStore | null = null;
 
-// 如果数据库不存在, open() 会创建一个新的数据库, 然后触发 onupgradeneeded 事件
-// 如果数据库存在, 但是指定了一个升级版的版本号, 则会立即触发 onupgradeneeded 事件
-request.onupgradeneeded = (ev): void => {
-  db = (ev.target as any).result as IDBDatabase;
+const openRequest: IDBOpenDBRequest = window.indexedDB.open(
+  user.databaseName,
+  user.databaseVersion
+);
 
-  // 如果存在则删除当前 objectStore
-  if (db.objectStoreNames.contains("users")) {
-    db.deleteObjectStore("users");
-  }
+openRequest.onupgradeneeded = (): void => {
+  database = openRequest.result;
 
-  db.createObjectStore("users", {
-    keyPath: "username",
+  database.createObjectStore(user.storeObjectName, {
+    autoIncrement: true,
+    keyPath: user.storeObjectId,
   });
 };
 
-// 设置一个用户
-let user = {
-  username: "007",
-  firstName: "James",
-  lastName: "Bond",
-  password: "foo",
+openRequest.onsuccess = async (): Promise<void> => {
+  console.log("获取数据库对象成功");
+  database = openRequest.result;
+  for await (const _t of generateDelayNum(10, 1000)) {
+    const transaction: IDBTransaction = database.transaction(
+      user.storeObjectName,
+      "readwrite",
+      {
+        durability: "relaxed",
+      }
+    );
+
+    objectStore = transaction.objectStore(user.storeObjectName);
+    const executeResult: IDBRequest<IDBValidKey> = objectStore.add({
+      str: crypto.randomUUID(),
+    });
+    executeResult.onsuccess = (): void => {
+      console.log("索引", executeResult.result);
+    };
+  }
 };
+
+openRequest.onerror = (): void => {
+  console.warn(openRequest.error);
+};
+
+/**
+ * 根据指定延迟时间逐步返回迭代上限值前的递增数
+ * @param limit 上限
+ * @param delay  迭代延迟
+ */
+async function* generateDelayNum(limit: number = 100, delay: number = 500) {
+  for (let i: number = 1; i <= limit; ++i) {
+    yield new Promise((resolve: (value: unknown) => void): void => {
+      setTimeout(() => {
+        resolve(i);
+      }, delay);
+    });
+  }
+}
