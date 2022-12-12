@@ -1,6 +1,6 @@
 import { useThrottle } from "../utils/performanceUtil";
 
-const drawingArea = document.querySelector("#axis")!;
+const drawingArea: HTMLElement = document.querySelector("#axis")!;
 export class DecoratorTest {
   private box: HTMLButtonElement;
 
