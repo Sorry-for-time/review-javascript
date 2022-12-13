@@ -68,4 +68,18 @@ function useThrottle(
   };
 }
 
-export { useDebounce, useThrottle };
+function effectA<T>(
+  _target: Object,
+  _propertyKey: string | symbol,
+  _descriptor: TypedPropertyDescriptor<T>
+): void {
+  console.log("effect A");
+}
+
+function effectB(): MethodDecorator {
+  return (): void => {
+    console.log("effect B");
+  };
+}
+
+export { useDebounce, useThrottle, effectA, effectB };
