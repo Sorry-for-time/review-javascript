@@ -5,7 +5,7 @@ export class DecoratorTest {
   private box: HTMLElement;
 
   constructor(selector: string) {
-    const res: HTMLButtonElement = document.querySelector(selector)!;
+    const res: HTMLButtonElement | null = document.querySelector(selector);
     if (res) {
       this.box = res;
     } else {
