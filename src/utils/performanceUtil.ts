@@ -50,7 +50,7 @@ function useThrottle(
   ): TypedPropertyDescriptor<T> | void => {
     let locker: boolean = false;
     const original: Function = descriptor.value as Function;
-    (descriptor.value as any) = (...params: Array<any>) => {
+    (descriptor.value as any) = (...params: Array<any>): void => {
       if (startImmediate) {
         startImmediate = false;
         original.call(target, ...params);
