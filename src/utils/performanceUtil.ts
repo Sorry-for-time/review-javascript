@@ -48,20 +48,20 @@ function useThrottle(
     _propertyKey: string | symbol,
     descriptor: TypedPropertyDescriptor<T>
   ): TypedPropertyDescriptor<T> | void => {
-    let locker: boolean = false;
+    const locker: Int8Array = new Int8Array([0]);
     const original: Function = descriptor.value as Function;
     (descriptor.value as any) = (...params: Array<any>): void => {
       if (startImmediate) {
         startImmediate = false;
-        original.call(target, ...params);
+        original.call(target, ...params); // 粗暴的方案
       } else {
-        if (locker) {
+        if (locker[0]) {
           return;
         }
-        locker = true;
+        Atomics.xor(locker, 0, 1);
         setTimeout((): void => {
           original.call(target, ...params);
-          locker = false;
+          Atomics.xor(locker, 0, 1);
         }, wait);
       }
     };
